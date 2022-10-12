@@ -1,4 +1,5 @@
 import 'package:chat_application/shere_functions/push_to.dart';
+import 'package:chat_application/ui/screens/welcom_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatBodyWidget extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: IconButton(
                 icon: const Icon(Icons.close, color: Colors.white),
-                onPressed: () => pop(context: context)),
+                onPressed: () => pushToAndReplacement(context: context,screenName: const WelcomeScreen())),
           ),
         ],
       );

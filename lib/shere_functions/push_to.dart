@@ -11,3 +11,6 @@ void pop({required BuildContext context}) {
 void callBack({required BuildContext context, dynamic callBackValue}) {
   return Navigator.pop(context, callBackValue);
 }
+Future pushToAndReplacement({required BuildContext context, required Widget screenName}) {
+  return Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => screenName));
+}

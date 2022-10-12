@@ -80,7 +80,7 @@ class _SignInScreenBodyWidgetState extends State<SignInScreenBodyWidget> {
             email: userNameController.text.trim(), password: passwordController.text.trim());
         if (FirebaseAuth.instance.currentUser != null) {
           pop(context: context);
-          pushTo(context: context, screenName: const ChatScreen());
+          pushToAndReplacement(context: context, screenName: const ChatScreen());
         }else{
           pop(context: context);
           showOkAlert(

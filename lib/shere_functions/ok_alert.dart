@@ -35,7 +35,7 @@ Future showOkAlert(
                         ButtonWidget(
                             buttonTitle: "Ok",
                             buttonTitleColor: Colors.white,
-                            buttonTitleSize: 10,
+                            buttonTitleSize: 15,
                             buttonColor: Colors.blue,
                             onPressed: onTap,
                             width: MediaQuery.of(context).size.width / 3),

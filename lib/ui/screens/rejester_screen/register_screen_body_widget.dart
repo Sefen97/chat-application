@@ -91,7 +91,7 @@ class _RegisterScreenBodyWidgetState extends State<RegisterScreenBodyWidget> {
                 text: "Sign up success",
                 onTap: () {
                   pop(context: context);
-                  pushTo(context: context, screenName: ChatScreen());
+                  pushToAndReplacement(context: context, screenName: ChatScreen());
                 });
           }else{
             pop(context: context);
