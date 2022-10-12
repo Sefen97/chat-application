@@ -1,4 +1,5 @@
 import 'package:chat_application/shere_functions/push_to.dart';
+import 'package:chat_application/ui/screens/chat_screen/chat_screen.dart';
 import 'package:chat_application/ui/screens/rejester_screen/register_screen.dart';
 import 'package:chat_application/ui/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:chat_application/ui/shere_widget/button_widget.dart';
