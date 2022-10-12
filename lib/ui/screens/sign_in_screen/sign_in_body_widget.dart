@@ -1,7 +1,12 @@
 import 'package:chat_application/shere_functions/push_to.dart';
+import 'package:chat_application/ui/screens/chat_screen/chat_screen.dart';
 import 'package:chat_application/ui/shere_widget/button_widget.dart';
 import 'package:chat_application/ui/shere_widget/textfield_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../../shere_functions/ok_alert.dart';
+import '../../../shere_functions/show_loader.dart';
 
 class SignInScreenBodyWidget extends StatefulWidget {
   const SignInScreenBodyWidget({Key? key}) : super(key: key);
@@ -11,6 +16,8 @@ class SignInScreenBodyWidget extends StatefulWidget {
 }
 
 class _SignInScreenBodyWidgetState extends State<SignInScreenBodyWidget> {
+  late UserCredential userCredential;
+
   TextEditingController passwordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
 
@@ -59,10 +66,53 @@ class _SignInScreenBodyWidgetState extends State<SignInScreenBodyWidget> {
                 ),
                 ButtonWidget(
                     buttonTitle: "Sign in",
-                    onPressed: () => pop(context: context)),
+                    onPressed: () => loginFunction()),
               ]),
         ),
 
     );
+  }
+  Future loginFunction() async {
+    if (userNameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      try {
+        showLoader(context);
+        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: userNameController.text.trim(), password: passwordController.text.trim());
+        if (FirebaseAuth.instance.currentUser != null) {
+          pop(context: context);
+          pushTo(context: context, screenName: const ChatScreen());
+        }else{
+          pop(context: context);
+          showOkAlert(
+              context: context,
+              text: "username or password unCorrect",
+              onTap: () =>pop(context: context));
+        }
+      } on FirebaseAuthException catch (e) {
+        pop(context: context);
+        showOkAlert(
+            context: context,
+            text: "The username or password is invalid ",
+            onTap: () {
+              pop(context: context);
+            });
+
+        if (e.code == 'user-not-found') {
+          pop(context: context);
+          showOkAlert(context: context, text: "No user found for that email", onTap: (){
+            pop(context: context);
+          });
+        } else if (e.code == 'wrong-password') {
+          pop(context: context);
+          showOkAlert(context: context, text: "Wrong password provided for that user", onTap: (){
+            pop(context: context);
+          });
+        }
+      }
+    }else{
+      showOkAlert(context: context, text: "Please enter user name and password", onTap: (){
+        pop(context: context);
+      });
+    }
   }
 }
