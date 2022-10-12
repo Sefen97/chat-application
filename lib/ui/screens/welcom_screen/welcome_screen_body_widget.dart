@@ -1,4 +1,6 @@
-import 'package:chat_application/ui/shere_widget/custom_button.dart';
+import 'package:chat_application/shere_functions/push_to.dart';
+import 'package:chat_application/ui/screens/rejester_screen/register_screen.dart';
+import 'package:chat_application/ui/shere_widget/button_widget.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreenBodyWidget extends StatefulWidget {
@@ -17,15 +19,18 @@ class _WelcomeScreenBodyWidgetState extends State<WelcomeScreenBodyWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomButtonWidget(
+          ButtonWidget(
             buttonTitle: "Sign In",
             onPressed: () {},
             buttonColor: Colors.yellow[900]!,
           ),
-          const SizedBox(height: 20,),
-          CustomButtonWidget(
+          const SizedBox(
+            height: 20,
+          ),
+          ButtonWidget(
             buttonTitle: "Sign Up",
-            onPressed: () {},
+            onPressed: () =>
+                pushTo(context: context, screenName: const RegisterScreen()),
             buttonColor: Colors.blue[900]!,
           ),
         ],

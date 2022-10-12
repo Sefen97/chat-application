@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomButtonWidget extends StatefulWidget {
+class ButtonWidget extends StatefulWidget {
   final Function() onPressed;
   final String buttonTitle;
   final double buttonTitleSize;
@@ -8,21 +8,21 @@ class CustomButtonWidget extends StatefulWidget {
   final Color buttonTitleColor;
   final Color buttonColor;
 
-  const CustomButtonWidget({
+  const ButtonWidget({
     Key? key,
     required this.buttonTitle,
     required this.onPressed,
     this.buttonTitleColor = Colors.white,
     this.buttonTitleSize = 20,
-    this.buttonColor = Colors.blueAccent,
+    this.buttonColor = Colors.indigo,
     this.width,
   }) : super(key: key);
 
   @override
-  State<CustomButtonWidget> createState() => _CustomButtonWidgetState();
+  State<ButtonWidget> createState() => _ButtonWidgetState();
 }
 
-class _CustomButtonWidgetState extends State<CustomButtonWidget> {
+class _ButtonWidgetState extends State<ButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
