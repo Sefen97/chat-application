@@ -26,6 +26,9 @@ class _RegisterScreenBodyWidgetState extends State<RegisterScreenBodyWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
                   Image.network("https://img.freepik.com/premium-vector/chatting-design-concept-with-hand-holding-cellphone_7087-798.jpg?w=2000"),
                     const  SizedBox(
                       height: 20,
