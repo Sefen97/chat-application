@@ -16,8 +16,7 @@ class _SignInScreenBodyWidgetState extends State<SignInScreenBodyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -63,7 +62,7 @@ class _SignInScreenBodyWidgetState extends State<SignInScreenBodyWidget> {
                     onPressed: () => pop(context: context)),
               ]),
         ),
-      ),
+
     );
   }
 }

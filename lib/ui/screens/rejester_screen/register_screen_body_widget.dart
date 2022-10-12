@@ -17,9 +17,7 @@ class _RegisterScreenBodyWidgetState extends State<RegisterScreenBodyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-        body: SingleChildScrollView(
+    return  SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
@@ -64,8 +62,6 @@ class _RegisterScreenBodyWidgetState extends State<RegisterScreenBodyWidget> {
               buttonTitle: "Register",
               onPressed: () => pop(context: context)),
           ]),),
-        )
-    ,
     );
   }
 }
