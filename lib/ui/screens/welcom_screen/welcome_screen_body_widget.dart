@@ -28,8 +28,9 @@ class _WelcomeScreenBodyWidgetState extends State<WelcomeScreenBodyWidget> {
           ),
           ButtonWidget(
             buttonTitle: "Sign In",
-            onPressed: () =>
-                pushTo(context: context, screenName: const SignInScreen()),
+            onPressed: () {
+              return pushTo(context: context, screenName: const SignInScreen());
+            },
             buttonColor: Colors.yellow[900]!,
           ),
           const SizedBox(
