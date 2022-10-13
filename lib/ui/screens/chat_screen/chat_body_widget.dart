@@ -32,7 +32,8 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
       appBar: _appBar(),
       body: Column(
         children: [
-          MassageStreamBuilderWidget(firestore: _firestore,signUser: _signUser),
+          MassageStreamBuilderWidget(
+              firestore: _firestore, signUser: _signUser),
           const Divider(color: Colors.orange, thickness: 2),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -55,13 +56,12 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                 ),
                 GestureDetector(
                     onTap: () {
-                      if(massageController.text!=""){
+                      if (massageController.text != "") {
                         addMassage(
                             text: massageController.text,
                             sender: _signUser.email.toString());
                         massageController.clear();
                       }
-
                     },
                     child: const Text("Send",
                         style: TextStyle(color: Colors.indigo, fontSize: 20))),
@@ -98,7 +98,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
     return await _firestore.collection("masseges").add({
       'sender': sender,
       'text': text,
-      'time':FieldValue.serverTimestamp(),
+      'time': FieldValue.serverTimestamp(),
     });
   }
 
