@@ -55,10 +55,13 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                 ),
                 GestureDetector(
                     onTap: () {
-                      addMassage(
-                          text: massageController.text,
-                          sender: _signUser.email.toString());
-                      massageController.clear();
+                      if(massageController.text!=""){
+                        addMassage(
+                            text: massageController.text,
+                            sender: _signUser.email.toString());
+                        massageController.clear();
+                      }
+
                     },
                     child: const Text("Send",
                         style: TextStyle(color: Colors.indigo, fontSize: 20))),
