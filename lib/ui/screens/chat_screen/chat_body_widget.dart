@@ -18,7 +18,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   late User _signUser;
-  final TextEditingController _massageController = TextEditingController();
+  TextEditingController massageController = TextEditingController();
 
   @override
   void initState() {
@@ -40,12 +40,11 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    controller: _massageController,
+                    controller: massageController,
                     onChanged: (value) {
-                      _massageController.text = value;
+                      // massageController.text = value;
                     },
                     textAlignVertical: TextAlignVertical.center,
-                    textAlign: TextAlign.start,
                     decoration: const InputDecoration(
                         hintText: "Write your massage ",
                         border: InputBorder.none),
@@ -56,12 +55,10 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
                 ),
                 GestureDetector(
                     onTap: () {
-                    if(_massageController.text.isNotEmpty){
                       addMassage(
-                          text: _massageController.text,
-                          sender: _signUser.email.toString()).then((value) =>   _massageController.clear());
-                    }
-                      
+                          text: massageController.text,
+                          sender: _signUser.email.toString());
+                      massageController.clear();
                     },
                     child: const Text("Send",
                         style: TextStyle(color: Colors.indigo, fontSize: 20))),
