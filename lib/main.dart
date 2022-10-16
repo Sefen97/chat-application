@@ -1,4 +1,5 @@
 import 'package:chat_application/ui/screens/chat_screen/chat_screen.dart';
+import 'package:chat_application/ui/screens/users_screen/users_screen.dart';
 import 'package:chat_application/ui/screens/welcom_screen/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +10,6 @@ void main() async{
  await Firebase.initializeApp();
   runApp( MaterialApp(
     debugShowCheckedModeBanner: false,
-    home:auth.currentUser==null? const WelcomeScreen():const ChatScreen(),
+    home:auth.currentUser==null? const WelcomeScreen():const UsersScreen(),
   ));
 }

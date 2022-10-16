@@ -1,5 +1,4 @@
 import 'package:chat_application/shere_functions/push_to.dart';
-import 'package:chat_application/ui/screens/chat_screen/chat_screen.dart';
 import 'package:chat_application/ui/shere_widget/button_widget.dart';
 import 'package:chat_application/ui/shere_widget/textfield_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shere_functions/ok_alert.dart';
 import '../../../shere_functions/show_loader.dart';
+import '../users_screen/users_screen.dart';
 
 class SignInScreenBodyWidget extends StatefulWidget {
   const SignInScreenBodyWidget({Key? key}) : super(key: key);
@@ -80,7 +80,7 @@ class _SignInScreenBodyWidgetState extends State<SignInScreenBodyWidget> {
             email: userNameController.text.trim(), password: passwordController.text.trim());
         if (FirebaseAuth.instance.currentUser != null) {
           pop(context: context);
-          pushToAndReplacement(context: context, screenName: const ChatScreen());
+          pushToAndReplacement(context: context, screenName: const UsersScreen());
         }else{
           pop(context: context);
           showOkAlert(

@@ -14,6 +14,14 @@ class FireBaseCall{
       'time': FieldValue.serverTimestamp(),
     });
   }
+  Future<DocumentReference<Map<String, dynamic>>> addUser(
+      {required String userName}) async {
+    return await firestore.collection("users").add({
+      'name': userName,
+      'time': FieldValue.serverTimestamp(),
+    });
+  }
+
 
 
 }

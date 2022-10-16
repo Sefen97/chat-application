@@ -1,14 +1,16 @@
 import 'dart:async';
 
-import 'package:chat_application/ui/screens/chat_screen/chat_screen.dart';
+import 'package:chat_application/network/firemase_call/firebase_call.dart';
 import 'package:chat_application/ui/shere_widget/button_widget.dart';
 import 'package:chat_application/ui/shere_widget/textfield_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shere_functions/push_to.dart';
 import '../../../shere_functions/show_loader.dart';
 import '../../../shere_functions/ok_alert.dart';
+import '../users_screen/users_screen.dart';
 
 class RegisterScreenBodyWidget extends StatefulWidget {
   const RegisterScreenBodyWidget({Key? key}) : super(key: key);
@@ -75,6 +77,7 @@ class _RegisterScreenBodyWidgetState extends State<RegisterScreenBodyWidget> {
     );
   }
 
+
   Future _registerMethod() async {
       if(userNameController.text.isNotEmpty&&passwordController.text.isNotEmpty){
         try {
@@ -85,13 +88,13 @@ class _RegisterScreenBodyWidgetState extends State<RegisterScreenBodyWidget> {
             password: passwordController.text.trim(),
           );
           if (userCredential.additionalUserInfo!.isNewUser) {
-            pop(context: context);
+          FireBaseCall().addUser(userName: userCredential.user!.email.toString());
             showOkAlert(
                 context: context,
                 text: "Sign up success",
                 onTap: () {
                   pop(context: context);
-                  pushToAndReplacement(context: context, screenName: ChatScreen());
+                  pushToAndReplacement(context: context, screenName: const UsersScreen());
                 });
           }else{
             pop(context: context);
