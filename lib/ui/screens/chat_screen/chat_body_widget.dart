@@ -1,5 +1,5 @@
+import 'package:chat_application/network/firemase_call/firebase_call.dart';
 import 'package:chat_application/ui/screens/chat_screen/massage_stream_builder.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +15,8 @@ class ChatBodyWidget extends StatefulWidget {
 }
 
 class _ChatBodyWidgetState extends State<ChatBodyWidget> {
-  final _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
   late User _signUser;
+
   TextEditingController massageController = TextEditingController();
 
   @override
@@ -33,38 +32,17 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
       body: Column(
         children: [
           MassageStreamBuilderWidget(
-              firestore: _firestore, signUser: _signUser),
+              firestore: FireBaseCall().firestore, signUser: _signUser),
           const Divider(color: Colors.orange, thickness: 2),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: massageController,
-                    onChanged: (value) {
-                      // massageController.text = value;
-                    },
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: const InputDecoration(
-                        hintText: "Write your massage ",
-                        border: InputBorder.none),
-                  ),
-                ),
+                massageWidget(),
                 const SizedBox(
                   width: 10,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      if (massageController.text != "") {
-                        addMassage(
-                            text: massageController.text,
-                            sender: _signUser.email.toString());
-                        massageController.clear();
-                      }
-                    },
-                    child: const Text("Send",
-                        style: TextStyle(color: Colors.indigo, fontSize: 20))),
+                sendWidget()
               ],
             ),
           ),
@@ -78,7 +56,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
 
   void _getCurrentUser() {
     try {
-      final user = _auth.currentUser;
+      final user = FireBaseCall().auth.currentUser;
       if (user != null) {
         _signUser = user;
         if (kDebugMode) {
@@ -91,15 +69,6 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
         print(error);
       }
     }
-  }
-
-  Future<DocumentReference<Map<String, dynamic>>> addMassage(
-      {required String text, required String sender}) async {
-    return await _firestore.collection("masseges").add({
-      'sender': sender,
-      'text': text,
-      'time': FieldValue.serverTimestamp(),
-    });
   }
 
   PreferredSizeWidget _appBar() => AppBar(
@@ -124,4 +93,27 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
               icon: const Icon(Icons.email))
         ],
       );
+
+  Widget massageWidget() => Expanded(
+        child: TextFormField(
+          controller: massageController,
+          onChanged: (value) {
+            // massageController.text = value;
+          },
+          textAlignVertical: TextAlignVertical.center,
+          decoration: const InputDecoration(
+              hintText: "Write your massage ", border: InputBorder.none),
+        ),
+      );
+
+  Widget sendWidget() => GestureDetector(
+      onTap: () {
+        if (massageController.text != "") {
+          FireBaseCall().addMassage(
+              text: massageController.text, sender: _signUser.email.toString());
+          massageController.clear();
+        }
+      },
+      child: const Text("Send",
+          style: TextStyle(color: Colors.indigo, fontSize: 20)));
 }

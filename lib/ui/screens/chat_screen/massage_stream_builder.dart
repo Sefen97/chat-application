@@ -7,52 +7,44 @@ class MassageStreamBuilderWidget extends StatefulWidget {
   final FirebaseFirestore firestore;
   final User signUser;
 
-
-  const MassageStreamBuilderWidget({Key? key, required this.firestore,required this.signUser})
+  const MassageStreamBuilderWidget(
+      {Key? key, required this.firestore, required this.signUser})
       : super(key: key);
 
   @override
-  State<MassageStreamBuilderWidget> createState() => _MassageStreamBuilderWidgetState();
+  State<MassageStreamBuilderWidget> createState() =>
+      _MassageStreamBuilderWidgetState();
 }
 
 class _MassageStreamBuilderWidgetState
     extends State<MassageStreamBuilderWidget> {
-  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: StreamBuilder<QuerySnapshot>(
-          stream: widget.firestore.collection("masseges")
-              .orderBy('time')
-              .snapshots(),
-          builder: (context, snapshot) {
-
-
-            final List<MassageLineWidget> massagesWidgets = [];
-            if (snapshot.hasData) {
-              final massages = snapshot.data!.docs.reversed;
-              for (var massage in massages) {
-                final massageText = massage.get("text");
-                final massageSender = massage.get("sender");
-                final currentUser = widget.signUser.email;
-                final massageWidget = MassageLineWidget(
-                  isMe: currentUser == massageSender,
-                  massageSender: massageSender,
-                  massageText: massageText,
-                );
-                massagesWidgets.add(massageWidget);
-              }
-              return ListView(
-                reverse: true,
-                controller: _scrollController,
-                children: massagesWidgets,
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ));
-
+      stream:widget.firestore.collection("massages").orderBy('time').snapshots(),
+      builder: (context, snapshot) {
+        final List<MassageLineWidget> massagesWidgets = [];
+        if (snapshot.hasData) {
+          final massages = snapshot.data!.docs.reversed;
+          for (var massage in massages) {
+            final massageText = massage.get("textMassage");
+            final massageSender = massage.get("sender");
+            final currentUser = widget.signUser.email;
+            final massageWidget = MassageLineWidget(
+              isMe: currentUser == massageSender,
+              massageSender: massageSender,
+              massageText: massageText,
+            );
+            massagesWidgets.add(massageWidget);
+          }
+          return ListView(
+            reverse: true,
+            children: massagesWidgets,
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
+    ));
   }
-
-
 }
