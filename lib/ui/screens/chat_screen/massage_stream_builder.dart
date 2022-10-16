@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 class MassageStreamBuilderWidget extends StatefulWidget {
   final FirebaseFirestore firestore;
   final User signUser;
+  final String userId;
 
   const MassageStreamBuilderWidget(
-      {Key? key, required this.firestore, required this.signUser})
+      {Key? key,
+      required this.firestore,
+      required this.signUser,
+      required this.userId})
       : super(key: key);
 
   @override
@@ -22,14 +26,19 @@ class _MassageStreamBuilderWidgetState
   Widget build(BuildContext context) {
     return Expanded(
         child: StreamBuilder<QuerySnapshot>(
-      stream:widget.firestore.collection("massages").orderBy('time').snapshots(),
+      stream: widget.firestore
+          .collection("users")
+          .doc(widget.userId.toString())
+          .collection("massages")
+          .orderBy('time')
+          .snapshots(),
       builder: (context, snapshot) {
         final List<MassageLineWidget> massagesWidgets = [];
         if (snapshot.hasData) {
           final massages = snapshot.data!.docs.reversed;
           for (var massage in massages) {
-            final massageText = massage.get("textMassage");
-            final massageSender = massage.get("sender");
+            final massageText = massage.get("massage");
+            final massageSender = massage.get("userId");
             final currentUser = widget.signUser.email;
             final massageWidget = MassageLineWidget(
               isMe: currentUser == massageSender,

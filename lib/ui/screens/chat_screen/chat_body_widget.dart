@@ -3,12 +3,10 @@ import 'package:chat_application/ui/screens/chat_screen/massage_stream_builder.d
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../../../shere_functions/push_to.dart';
-import '../welcom_screen/welcome_screen.dart';
-
 class ChatBodyWidget extends StatefulWidget {
-  const ChatBodyWidget({Key? key}) : super(key: key);
+  final String userId;
+  const ChatBodyWidget({Key? key,required this.userId}) : super(key: key);
 
   @override
   State<ChatBodyWidget> createState() => _ChatBodyWidgetState();
@@ -32,6 +30,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
       body: Column(
         children: [
           MassageStreamBuilderWidget(
+            userId: widget.userId,
               firestore: FireBaseCall().firestore, signUser: _signUser),
           const Divider(color: Colors.orange, thickness: 2),
           Padding(
@@ -59,10 +58,6 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
       final user = FireBaseCall().auth.currentUser;
       if (user != null) {
         _signUser = user;
-        if (kDebugMode) {
-          print(_signUser.email);
-          print("get current user 3 ");
-        }
       }
     } catch (error) {
       if (kDebugMode) {
@@ -79,9 +74,8 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: IconButton(
-              icon: const Icon(Icons.close, color: Colors.white),
-              onPressed: () => pushToAndReplacement(
-                  context: context, screenName: const WelcomeScreen())),
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+              onPressed: () => pop(context: context)),
         ),
         actions: [
           IconButton(
@@ -110,10 +104,10 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
       onTap: () {
         if (massageController.text != "") {
           FireBaseCall().addMassage(
+            userId: widget.userId,
               text: massageController.text, sender: _signUser.email.toString());
           massageController.clear();
         }
       },
-      child: const Text("Send",
-          style: TextStyle(color: Colors.indigo, fontSize: 20)));
+      child: const Icon(Icons.send_sharp,color: Colors.orange,));
 }

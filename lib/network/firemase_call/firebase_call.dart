@@ -7,10 +7,10 @@ class FireBaseCall{
 
 
   Future<DocumentReference<Map<String, dynamic>>> addMassage(
-      {required String text, required String sender}) async {
-    return await firestore.collection("massages").add({
-      'sender': sender,
-      'textMassage': text,
+      {required String text, required String sender,required String userId}) async {
+    return await firestore.collection("users").doc(userId.toString()).collection('massages').add({
+      'userId': sender,
+      'massage': text,
       'time': FieldValue.serverTimestamp(),
     });
   }

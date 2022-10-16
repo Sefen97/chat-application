@@ -35,7 +35,7 @@ class MassageLineWidget extends StatelessWidget {
                   bottomLeft: isMe
                       ? const Radius.circular(0)
                       : const Radius.circular(10)),
-              color: isMe ? Colors.blue[500] : Colors.white,
+              color: isMe ? Colors.orange[500] : Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Text(

@@ -37,6 +37,7 @@ class _UsersScreenBodyWidgetState extends State<UsersScreenBodyWidget> {
               for (var user in users) {
                 final userName = user.get("name");
                 final usersItem = UsersCard(
+                  userId: user.id,
                   userName: userName,
                 );
                 if (usersItem.userName != _signUser.email) {
