@@ -33,24 +33,17 @@ class _MassageStreamBuilderWidgetState
           .orderBy('time')
           .snapshots(),
       builder: (context, snapshot) {
-        final List<MassageLineWidget> massagesWidgets = [];
         if (snapshot.hasData) {
-          final massages = snapshot.data!.docs.reversed;
-          for (var massage in massages) {
-            final massageText = massage.get("massage");
-            final massageSender = massage.get("userId");
-            final currentUser = widget.signUser.email;
-            final massageWidget = MassageLineWidget(
-              isMe: currentUser == massageSender,
-              massageSender: massageSender,
-              massageText: massageText,
-            );
-            massagesWidgets.add(massageWidget);
-          }
-          return ListView(
-            reverse: true,
-            children: massagesWidgets,
-          );
+          return ListView.builder(
+            reverse: false,
+            itemCount: snapshot.data!.docs.length,
+              itemBuilder: (BuildContext context, int index) {
+            return MassageLineWidget(
+                massageSender: snapshot.data!.docs[index].get("userId"),
+                massageText: snapshot.data!.docs[index].get("massage"),
+                isMe: widget.signUser.email ==
+                    snapshot.data!.docs[index].get("userId"));
+          });
         }
         return const Center(child: CircularProgressIndicator());
       },
