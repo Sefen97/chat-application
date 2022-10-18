@@ -105,7 +105,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
         if (massageController.text != "") {
           FireBaseCall().addMassage(
             userId: widget.userId,
-              text: massageController.text, sender: _signUser.email.toString());
+              text: massageController.text.trim(), sender: _signUser.email.toString().trim());
           massageController.clear();
         }
       },

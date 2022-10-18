@@ -21,9 +21,6 @@ class FireBaseCall{
       'time': FieldValue.serverTimestamp(),
     });
   }
-
-
-
 }
 
 

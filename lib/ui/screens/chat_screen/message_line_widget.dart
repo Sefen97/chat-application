@@ -15,35 +15,37 @@ class MassageLineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
       child: Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text(
-            massageSender,
-            style: const TextStyle(fontSize: 12, color: Colors.black),
+          Padding(
+            padding: EdgeInsets.only(
+                left: isMe ? MediaQuery.of(context).size.width / 3 : 0,
+                right: isMe ? 0 : MediaQuery.of(context).size.width / 3),
+            child: Material(
+                elevation: 2,
+                borderRadius: BorderRadius.only(
+                    bottomRight: isMe
+                        ? const Radius.circular(10)
+                        : const Radius.circular(0),
+                    topLeft: const Radius.circular(10),
+                    topRight: const Radius.circular(10),
+                    bottomLeft: isMe
+                        ? const Radius.circular(0)
+                        : const Radius.circular(10)),
+                color: isMe ? Colors.orange[500] : Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    massageText,
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: isMe ? Colors.white : Colors.black),
+                  ),
+                )),
           ),
-          Material(
-              elevation: 10,
-              borderRadius: BorderRadius.only(
-                  bottomRight: isMe
-                      ? const Radius.circular(10)
-                      : const Radius.circular(0),
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                  bottomLeft: isMe
-                      ? const Radius.circular(0)
-                      : const Radius.circular(10)),
-              color: isMe ? Colors.orange[500] : Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  massageText,
-                  style: TextStyle(
-                      fontSize: 12, color: isMe ? Colors.white : Colors.black),
-                ),
-              )),
         ],
       ),
     );
