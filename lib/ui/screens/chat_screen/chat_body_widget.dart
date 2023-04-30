@@ -106,7 +106,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
         ),
       );
 
-  Widget sendWidget() => GestureDetector(
+  Widget sendWidget() => InkWell(
       onTap: () {
         if (massageController.text != "") {
           FireBaseCall().addMassage(
