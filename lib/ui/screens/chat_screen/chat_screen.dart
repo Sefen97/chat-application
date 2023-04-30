@@ -10,9 +10,5 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   @override
-  Widget build(BuildContext context) {
-    return  const ChatBodyWidget();
-  }
-
-
+  Widget build(BuildContext context) => const ChatBodyWidget();
 }

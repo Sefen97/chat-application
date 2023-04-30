@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MassageStreamBuilderWidget extends StatefulWidget {
-  final FirebaseFirestore firestore;
+  final FirebaseFirestore fireStore;
   final User signUser;
 
   const MassageStreamBuilderWidget(
-      {Key? key, required this.firestore, required this.signUser})
+      {Key? key, required this.fireStore, required this.signUser})
       : super(key: key);
 
   @override
@@ -22,7 +22,8 @@ class _MassageStreamBuilderWidgetState
   Widget build(BuildContext context) {
     return Expanded(
         child: StreamBuilder<QuerySnapshot>(
-      stream:widget.firestore.collection("massages").orderBy('time').snapshots(),
+      stream:
+          widget.fireStore.collection("massages").orderBy('time').snapshots(),
       builder: (context, snapshot) {
         final List<MassageLineWidget> massagesWidgets = [];
         if (snapshot.hasData) {
@@ -38,10 +39,7 @@ class _MassageStreamBuilderWidgetState
             );
             massagesWidgets.add(massageWidget);
           }
-          return ListView(
-            reverse: true,
-            children: massagesWidgets,
-          );
+          return ListView(reverse: true, children: massagesWidgets);
         }
         return const Center(child: CircularProgressIndicator());
       },

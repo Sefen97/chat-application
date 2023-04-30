@@ -17,7 +17,7 @@ class ChatBodyWidget extends StatefulWidget {
 class _ChatBodyWidgetState extends State<ChatBodyWidget> {
   late User _signUser;
 
-  TextEditingController massageController = TextEditingController();
+  final TextEditingController _massageController = TextEditingController();
 
   @override
   void initState() {
@@ -26,43 +26,36 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
-      body: Column(
-        children: [
-          MassageStreamBuilderWidget(
-              firestore: FireBaseCall().firestore, signUser: _signUser),
-          const SizedBox(height: 15),
-          Card(
-            elevation: 10,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10,left: 10,top: 10,bottom: 5),
-              child: Row(
-                children: [
-                  massageWidget(),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  sendWidget()
-                ],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: _appBar(),
+        body: Column(
+          children: [
+            MassageStreamBuilderWidget(
+                fireStore: FireBaseCall().firestore, signUser: _signUser),
+            const SizedBox(height: 15),
+            Card(
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    right: 10, left: 10, top: 10, bottom: 5),
+                child: Row(
+                  children: [
+                    massageWidget(),
+                    const SizedBox(width: 10),
+                    sendWidget()
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 
   void _getCurrentUser() {
     try {
       final user = FireBaseCall().auth.currentUser;
       if (user != null) {
         _signUser = user;
-        if (kDebugMode) {
-          print(_signUser.email);
-          print("get current user 3 ");
-        }
       }
     } catch (error) {
       if (kDebugMode) {
@@ -83,23 +76,13 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
               onPressed: () => pushToAndReplacement(
                   context: context, screenName: const WelcomeScreen())),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                if (kDebugMode) {
-                  print("hello");
-                }
-              },
-              icon: const Icon(Icons.email))
-        ],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.email))],
       );
 
   Widget massageWidget() => Expanded(
         child: TextFormField(
-          controller: massageController,
-          onChanged: (value) {
-            // massageController.text = value;
-          },
+          controller: _massageController,
+          onChanged: (value) {},
           textAlignVertical: TextAlignVertical.center,
           decoration: const InputDecoration(
               hintText: "Write your massage ", border: InputBorder.none),
@@ -108,10 +91,10 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
 
   Widget sendWidget() => InkWell(
       onTap: () {
-        if (massageController.text != "") {
+        if (_massageController.text != "") {
           FireBaseCall().addMassage(
-              text: massageController.text, sender: _signUser.email.toString());
-          massageController.clear();
+              text: _massageController.text, sender: _signUser.email.toString());
+          _massageController.clear();
         }
       },
       child: const Text("Send",
