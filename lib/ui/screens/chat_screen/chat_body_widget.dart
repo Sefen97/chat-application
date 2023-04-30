@@ -33,21 +33,21 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
         children: [
           MassageStreamBuilderWidget(
               firestore: FireBaseCall().firestore, signUser: _signUser),
-          const Divider(color: Colors.orange, thickness: 2),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                massageWidget(),
-                const SizedBox(
-                  width: 10,
-                ),
-                sendWidget()
-              ],
+          const SizedBox(height: 15),
+          Card(
+            elevation: 10,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10,left: 10,top: 10,bottom: 5),
+              child: Row(
+                children: [
+                  massageWidget(),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  sendWidget()
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
           ),
         ],
       ),

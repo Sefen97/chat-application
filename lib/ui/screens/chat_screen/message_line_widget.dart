@@ -20,13 +20,16 @@ class MassageLineWidget extends StatelessWidget {
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text(
-            massageSender.split('@').first.toString(),
-            style: const TextStyle(fontSize: 12, color: Colors.black),
+          Visibility(
+            visible: isMe==true?false:true,
+            child: Text(
+              massageSender.split('@').first.toString(),
+              style: const TextStyle(fontSize: 15, color: Colors.black),
+            ),
           ),
           const SizedBox(height: 10,),
           Material(
-              elevation: 10,
+              elevation: 20,
               borderRadius: BorderRadius.only(
                   bottomRight: isMe
                       ? const Radius.circular(10)
@@ -42,7 +45,7 @@ class MassageLineWidget extends StatelessWidget {
                 child: Text(
                   massageText,
                   style: TextStyle(
-                      fontSize: 12, color: isMe ? Colors.white : Colors.black),
+                      fontSize: 20, color: isMe ? Colors.white : Colors.black),
                 ),
               )),
         ],
