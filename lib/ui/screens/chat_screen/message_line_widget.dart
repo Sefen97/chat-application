@@ -4,7 +4,6 @@ class MassageLineWidget extends StatelessWidget {
   final String massageSender;
   final String massageText;
   final bool isMe;
-
   const MassageLineWidget(
       {Key? key,
       required this.massageSender,
