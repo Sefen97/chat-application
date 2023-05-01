@@ -88,6 +88,7 @@ class _ChatBodyWidgetState extends State<ChatBodyWidget> {
               hintText: "Write your massage ", border: InputBorder.none),
         ),
       );
+
   Widget sendWidget() => InkWell(
       onTap: () {
         if (_massageController.text != "") {
