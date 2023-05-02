@@ -8,9 +8,14 @@ final auth = FirebaseAuth.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: auth.currentUser == null ? const WelcomeScreen() : const ChatScreen(),
-  ));
+
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home:
+          auth.currentUser == null ? const WelcomeScreen() : const ChatScreen(),
+    ),
+  );
 }
