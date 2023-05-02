@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 final auth = FirebaseAuth.instance;
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
